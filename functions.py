@@ -1,5 +1,15 @@
 number = 0
 
+roman = {
+    1:"I",
+    5:"V",
+    10:"X",
+    50:"L",
+    100:"C",
+    500:"D",
+    1000:"M"
+}
+
 def request_number():
     """
     Solicita un numero y luego devuelve dicho numero.
@@ -30,3 +40,17 @@ def separate_into_units(n:int)->list:
         units.append(int(i + ("0" * (len(string) - count))))
         count += 1
     return units
+
+def to_roman(number:int)->str:
+    result = ""
+    if number <= 3:
+        result += number * roman[1]
+    elif number == 4:
+        result += roman[1] + roman[5]
+    elif number < 9:
+        result += roman[5] + (number - 5) * roman[1]
+    elif number == 9:
+        result += roman[1] + roman[10]
+    else:
+        result += roman[10]
+    return result
