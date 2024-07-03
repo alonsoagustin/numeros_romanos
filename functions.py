@@ -1,4 +1,4 @@
-number = 0
+sequence = 0
 
 roman = {
     1:"I",
@@ -18,13 +18,13 @@ def request_number():
         2. Vuelve a solicitar un numero al usuario.
     Si el usuario ingresa un numero valido, devuelve dicho numero.
     """
-    global number
+    global sequence
     while True:
         try:
-            number = int(input("Ingrese un numero positivo: "))
-            if number < 0:
-                raise ValueError(f'Usted ingreso un numero negativo: "{number}"')
-            return number
+            sequence = int(input("Ingrese un numero positivo: "))
+            if sequence < 0:
+                raise ValueError(f'Usted ingreso un numero negativo: "{sequence}"')
+            return sequence
         except ValueError as e:
             print(f'Error: {e}. Por favor, ingrese un numero valido: ')
 
@@ -41,16 +41,26 @@ def separate_into_units(n:int)->list:
         count += 1
     return units
 
-def to_roman(number:int)->str:
-    result = ""
-    if number <= 3:
-        result += number * roman[1]
-    elif number == 4:
-        result += roman[1] + roman[5]
-    elif number < 9:
-        result += roman[5] + (number - 5) * roman[1]
-    elif number == 9:
-        result += roman[1] + roman[10]
-    else:
-        result += roman[10]
+def to_roman(sequence:list)->str:
+    """
+    Recibe una lista de numeros.
+    Convierte los numeros a romanos.
+    Devuelve en una sola cadena todos los numeros romanos concatenados.
+    Funciona correctamente hasta 3999 inclusive.
+    """
+    result = ""  
+    base = int("1"+ ("0" * (len(sequence)-1)))
+    for index,number in enumerate(sequence):
+        n = sequence[index] // base
+        if n <= 3:
+            result += n * roman[1*base]
+        elif n == 4:
+            result += roman[1*base] + roman[5*base]
+        elif n < 9:
+            result += roman[5*base] + (n - 5) * roman[1*base]
+        elif n == 9:
+            result += roman[1*base] + roman[10*base]
+        else:
+            result += roman[base]
+        base = base // 10
     return result
