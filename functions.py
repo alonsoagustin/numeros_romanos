@@ -28,7 +28,7 @@ def request_number():
         except ValueError as e:
             print(f'Error: {e}. Por favor, ingrese un numero valido: ')
 
-def separate_into_units(n:int)->list:
+def separate_in_units(n:int)->list:
     """
     Recibe un numero entero.
     Devuelve en una lista la descomposicion de dicho numero.
