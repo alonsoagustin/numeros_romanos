@@ -1,5 +1,4 @@
-sequence = 0
-
+number = 0
 roman = {
     1:"I",
     5:"V",
@@ -18,13 +17,13 @@ def request_number():
         2. Vuelve a solicitar un numero al usuario.
     Si el usuario ingresa un numero valido, devuelve dicho numero.
     """
-    global sequence
+    global number
     while True:
         try:
-            sequence = int(input("Ingrese un numero positivo: "))
-            if sequence < 0:
-                raise ValueError(f'Usted ingreso un numero negativo: "{sequence}"')
-            return sequence
+            number = int(input("Ingrese un numero positivo: "))
+            if number < 0:
+                raise ValueError(f'Usted ingreso un numero negativo: "{number}"')
+            return number
         except ValueError as e:
             print(f'Error: {e}. Por favor, ingrese un numero valido: ')
 
@@ -60,7 +59,11 @@ def to_roman(sequence:list)->str:
             result += roman[5*base] + (n - 5) * roman[1*base]
         elif n == 9:
             result += roman[1*base] + roman[10*base]
-        else:
-            result += roman[base]
         base = base // 10
     return result
+
+def start_program():
+    numero = request_number()
+    in_units = separate_in_units(numero)
+    roman = to_roman(in_units)
+    return print(roman)
