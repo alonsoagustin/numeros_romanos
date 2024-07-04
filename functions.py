@@ -27,20 +27,7 @@ def request_number():
         except ValueError as e:
             print(f'Error: {e}. Por favor, ingrese un numero valido: ')
 
-def separate_in_units(n:int)->list:
-    """
-    Recibe un numero entero.
-    Devuelve en una lista la descomposicion de dicho numero.
-    """
-    string = str(n)
-    units = []
-    count = 1
-    for i in string:
-        units.append(int(i + ("0" * (len(string) - count))))
-        count += 1
-    return units
-
-def to_roman(sequence:list)->str:
+def small_numbers_to_roman(sequence:list)->str:
     """
     Recibe una lista de numeros.
     Convierte los numeros a romanos.
@@ -62,8 +49,62 @@ def to_roman(sequence:list)->str:
         base = base // 10
     return result
 
+def big_numbers_to_roman(sequence:list)->str:
+    """
+    Recibe una lista de numeros.
+    Convierte los numeros a romanos.
+    Devuelve en una sola cadena todos los numeros romanos concatenados.
+    Funciona con numeros superiores a 3999.
+    """
+    inverted = sequence[::-1]
+    result = []
+    count = len(inverted)-1
+    for number in inverted:
+        temp = separate_in_units(number)
+        result.append(small_numbers_to_roman(temp))
+        if number != 0:
+            result.append("*"*count)
+        count -= 1
+    return "".join(result)
+
+def separate_in_units(n:int)->list:
+    """
+    Recibe un numero entero.
+    Devuelve en una lista la descomposicion de dicho numero.
+    """
+    string = str(n)
+    units = []
+    count = 1
+    for i in string:
+        units.append(int(i + ("0" * (len(string) - count))))
+        count += 1
+    return units
+
+def separate_in_thousands(n:int)->list:
+    in_thousands = []
+    resto = n % 1000
+    cociente = n // 1000
+    while cociente >= 1000:
+        in_thousands.append(resto)
+        n = cociente 
+        resto = n % 1000
+        cociente = n // 1000
+    if cociente <= 3:
+        in_thousands.append(n)
+    else:
+        in_thousands.append(resto)
+        in_thousands.append(cociente)
+    return in_thousands
+
+def to_roman(n:int)->str:
+    if n >= 4000:
+        separated = separate_in_thousands(n)
+        return big_numbers_to_roman(separated)
+    else:
+        separated = separate_in_units()
+        return small_numbers_to_roman(separated)
+
 def start_program():
     numero = request_number()
-    in_units = separate_in_units(numero)
-    roman = to_roman(in_units)
+    roman = to_roman(numero)
     return print(roman)
