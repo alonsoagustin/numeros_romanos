@@ -21,7 +21,7 @@ Un programa realizado en Python que permite convertir números arábigos a roman
 1. Clona el repositorio
 
 ```cmd
-git clone https://github.com/alonsoagustin/numeros_romanos.git
+git clone https://github.com/alonsoagustin/roman_numbers.git
 ```
 
 2. Crea un entorno virtual e instala las dependencias
@@ -40,7 +40,7 @@ python main.py
 
 ## Uso
 
-Introduce un números arábigos positivo que desee convertir a romano.
+Introduce un número arábigo positivo que desee convertir a romano.
 
 ### Input
 
